@@ -46,7 +46,7 @@
 	if ($log_position == 0)
 	{
 		echo "Empty log position, resetting to END of current log file.  No events handled this run.\n";
-		$log_position = filesize($config['iptraf_log']);
+		$cached_data['logpos'] = $log_position = filesize($config['iptraf_log']);
 	}
 
 	$log = fopen($config['iptraf_log'],"r");
@@ -70,6 +70,6 @@
 	{
 		$cached_data['logpos'] = ftell($log);
 		$cached_data['lastupdate'] = time();
-		file_put_contents($config['data_file'],serialize($cached_data));
 	}
+	file_put_contents($config['data_file'],serialize($cached_data));
 
